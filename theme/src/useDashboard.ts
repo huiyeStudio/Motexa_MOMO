@@ -8,17 +8,21 @@ import type {
 import manifest from '../ride-ui.json'
 
 export interface DashboardConfig {
-  accent: 'lime' | 'cyan' | 'amber'
+  accent: 'lime' | 'cyan' | 'amber' | 'purple' | 'orange'
   hideSpeedDecimal: boolean
   showPower: boolean
+  animationStyle: 'smooth' | 'energetic' | 'minimal'
 }
 
 const normalizeConfig = (data: unknown): DashboardConfig => {
   const value = data as Partial<DashboardConfig> | null
+  const validAccent = ['cyan', 'amber', 'purple', 'orange', 'lime'].includes(value?.accent as string) ? value!.accent! : 'cyan'
+  const validAnimation = ['energetic', 'minimal', 'smooth'].includes(value?.animationStyle as string) ? value!.animationStyle! : 'smooth'
   return {
-    accent: value?.accent === 'cyan' || value?.accent === 'amber' ? value.accent : 'lime',
+    accent: validAccent as DashboardConfig['accent'],
     hideSpeedDecimal: value?.hideSpeedDecimal === true,
     showPower: value?.showPower !== false,
+    animationStyle: validAnimation as DashboardConfig['animationStyle'],
   }
 }
 
@@ -51,13 +55,30 @@ export const useDashboard = () => {
     'is-low-power': snapshot.value?.scene.layout.lowPower === true,
     'is-settings': isSettings.value,
   }))
-  const themeStyle = computed(() => ({
-    '--accent': { lime: '#b7f36b', cyan: '#60d7ff', amber: '#ffc36a' }[config.value.accent],
-    '--safe-top': `${context.value?.safeArea.top ?? 0}px`,
-    '--safe-right': `${context.value?.safeArea.right ?? 0}px`,
-    '--safe-bottom': `${context.value?.safeArea.bottom ?? 0}px`,
-    '--safe-left': `${context.value?.safeArea.left ?? 0}px`,
-  }))
+  const themeStyle = computed(() => {
+    const accentColors = { 
+      lime: '#b7f36b', 
+      cyan: '#60d7ff', 
+      amber: '#ffc36a',
+      purple: '#c084fc',
+      orange: '#fb923c'
+    }
+    const accentRgb = {
+      lime: '183, 243, 107',
+      cyan: '96, 215, 255',
+      amber: '255, 195, 106',
+      purple: '192, 132, 252',
+      orange: '251, 146, 60'
+    }
+    return {
+      '--accent': accentColors[config.value.accent],
+      '--accent-rgb': accentRgb[config.value.accent],
+      '--safe-top': `${context.value?.safeArea.top ?? 0}px`,
+      '--safe-right': `${context.value?.safeArea.right ?? 0}px`,
+      '--safe-bottom': `${context.value?.safeArea.bottom ?? 0}px`,
+      '--safe-left': `${context.value?.safeArea.left ?? 0}px`,
+    }
+  })
   const value = (key: RideUiTelemetryKeyV1) => snapshot.value?.telemetry[key] ?? null
   const display = (key: RideUiTelemetryKeyV1) => {
     const metric = value(key)

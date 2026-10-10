@@ -1,12 +1,12 @@
 {
   "manifestVersion": 1,
-  "id": "partner.example-dashboard",
-  "name": "Partner Dashboard",
-  "version": "0.2.0",
+  "id": "huiyestudio.momo-dashboard",
+  "name": "MOMO Dashboard",
+  "version": "1.0.0",
   "entry": "src/main.ts",
   "api": {
     "major": 1,
-    "minMinor": 10
+    "minMinor": 11
   },
   "orientations": [
     "portrait",
@@ -21,8 +21,8 @@
     "theme.config-patch"
   ],
   "runtime": {
-    "publisherId": "partner.example",
-    "releaseId": "partner.example-dashboard@0.2.0-web-default",
+    "publisherId": "studio.huiye",
+    "releaseId": "huiyestudio.momo-dashboard@1.0.0-web-default",
     "renderer": "web",
     "variantId": "web-default",
     "targets": [
@@ -59,9 +59,9 @@
       "css"
     ],
     "metadata": {
-      "author": "Example Partner",
+      "author": "Huiye Studio",
       "license": "MIT",
-      "description": "Partner dashboard example for the independent Ride UI SDK."
+      "description": "MOMO Dashboard - A modern and dynamic ride UI theme with vibrant colors and smooth animations."
     },
     "performance": {
       "targetRefreshHz": [
@@ -75,9 +75,10 @@
     "schemaVersion": 1,
     "schema": "config.schema.json",
     "default": {
-      "accent": "lime",
+      "accent": "cyan",
       "hideSpeedDecimal": false,
-      "showPower": true
+      "showPower": true,
+      "animationStyle": "smooth"
     }
   }
 }

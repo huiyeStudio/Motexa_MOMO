@@ -22,6 +22,8 @@ const update = (patch: Partial<DashboardConfig>) => emit('update:modelValue', { 
             <option value="lime">{{ zh ? '青柠' : 'Lime' }}</option>
             <option value="cyan">{{ zh ? '青蓝' : 'Cyan' }}</option>
             <option value="amber">{{ zh ? '琥珀' : 'Amber' }}</option>
+            <option value="purple">{{ zh ? '紫色' : 'Purple' }}</option>
+            <option value="orange">{{ zh ? '橙色' : 'Orange' }}</option>
           </select>
         </label>
         <label class="settings-row"><span>{{ zh ? '隐藏时速小数' : 'Hide speed decimals' }}</span>
@@ -29,6 +31,13 @@ const update = (patch: Partial<DashboardConfig>) => emit('update:modelValue', { 
         </label>
         <label class="settings-row"><span>{{ zh ? '显示功率' : 'Show power' }}</span>
           <input type="checkbox" :checked="modelValue.showPower" @change="update({ showPower: ($event.target as HTMLInputElement).checked })">
+        </label>
+        <label class="settings-row"><span>{{ zh ? '动画风格' : 'Animation style' }}</span>
+          <select :value="modelValue.animationStyle" @change="update({ animationStyle: ($event.target as HTMLSelectElement).value as DashboardConfig['animationStyle'] })">
+            <option value="smooth">{{ zh ? '流畅' : 'Smooth' }}</option>
+            <option value="energetic">{{ zh ? '动感' : 'Energetic' }}</option>
+            <option value="minimal">{{ zh ? '简约' : 'Minimal' }}</option>
+          </select>
         </label>
       </fieldset>
       <p class="settings-note">{{ zh ? '时速小数跟随 App 总开关。' : 'Speed decimals also follow the app setting.' }}</p>
